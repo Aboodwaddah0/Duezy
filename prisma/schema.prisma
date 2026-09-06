@@ -1,4 +1,3 @@
-
 generator client {
   provider = "prisma-client"
   output   = "../src/generated/prisma"
@@ -9,38 +8,33 @@ datasource db {
 }
 
 model Profile {
-  id        String   @id
-  fullName  String?
-  avatarUrl String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
+  id            String         @id @default(uuid())
+  userId        String         @unique
+  fullName      String?
+  avatarUrl     String?
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
   subscriptions Subscription[]
 
   @@map("profiles")
 }
 
 model Subscription {
-  id            String   @id @default(uuid())
-  userId        String
-
-  name          String
-  provider      String?
-  price         Decimal
-  currency      String   @default("USD")
-
-  billingCycle  BillingCycle
-  renewalDate   DateTime
-
-  category      String?
-  status        SubscriptionStatus @default(ACTIVE)
-  source        SubscriptionSource @default(MANUAL)
-
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-
-  profile       Profile   @relation(fields: [userId], references: [id], onDelete: Cascade)
-  reminders     Reminder[]
+  id           String             @id @default(uuid())
+  userId       String
+  name         String
+  provider     String?
+  price        Decimal
+  currency     String             @default("USD")
+  billingCycle BillingCycle
+  renewalDate  DateTime
+  category     String?
+  status       SubscriptionStatus @default(ACTIVE)
+  source       SubscriptionSource @default(MANUAL)
+  createdAt    DateTime           @default(now())
+  updatedAt    DateTime           @updatedAt
+  reminders    Reminder[]
+  profile      Profile            @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
   @@index([renewalDate])
@@ -50,13 +44,10 @@ model Subscription {
 model Reminder {
   id             String         @id @default(uuid())
   subscriptionId String
-
   remindAt       DateTime
   status         ReminderStatus @default(PENDING)
   sentAt         DateTime?
-
   createdAt      DateTime       @default(now())
-
   subscription   Subscription   @relation(fields: [subscriptionId], references: [id], onDelete: Cascade)
 
   @@index([subscriptionId])
