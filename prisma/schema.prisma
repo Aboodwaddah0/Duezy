@@ -9,7 +9,6 @@ datasource db {
 
 model Profile {
   id            String         @id @default(uuid())
-  userId        String         @unique
   fullName      String?
   avatarUrl     String?
   createdAt     DateTime       @default(now())

@@ -10,7 +10,7 @@ export const createProfile = async (
 ) => {
   return prisma.profile.create({
     data: {
-      userId,
+      id: userId,
       ...param,
     },
   });
@@ -19,7 +19,7 @@ export const createProfile = async (
 export const getProfileById = async (userId: string) => {
   return prisma.profile.findUnique({
     where: {
-      userId,
+      id: userId,
     },
   });
 };
@@ -30,7 +30,7 @@ export const updateProfile = async (
 ) => {
   return prisma.profile.update({
     where: {
-      userId,
+      id: userId,
     },
     data: {
       ...param,
@@ -41,7 +41,7 @@ export const updateProfile = async (
 export const deleteProfile = async (userId: string) => {
   return prisma.profile.delete({
     where: {
-      userId,
+      id: userId,
     },
   });
 };

@@ -82,7 +82,6 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 });
 export const ProfileScalarFieldEnum = {
     id: 'id',
-    userId: 'userId',
     fullName: 'fullName',
     avatarUrl: 'avatarUrl',
     createdAt: 'createdAt',

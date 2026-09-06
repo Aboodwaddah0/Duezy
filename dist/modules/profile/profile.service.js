@@ -2,7 +2,7 @@ import prisma from "../../lib/prisma.js";
 export const createProfile = async (userId, param) => {
     return prisma.profile.create({
         data: {
-            userId,
+            id: userId,
             ...param,
         },
     });
@@ -10,14 +10,14 @@ export const createProfile = async (userId, param) => {
 export const getProfileById = async (userId) => {
     return prisma.profile.findUnique({
         where: {
-            userId,
+            id: userId,
         },
     });
 };
 export const updateProfile = async (userId, param) => {
     return prisma.profile.update({
         where: {
-            userId,
+            id: userId,
         },
         data: {
             ...param,
@@ -27,7 +27,7 @@ export const updateProfile = async (userId, param) => {
 export const deleteProfile = async (userId) => {
     return prisma.profile.delete({
         where: {
-            userId,
+            id: userId,
         },
     });
 };
